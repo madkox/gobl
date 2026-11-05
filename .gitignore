@@ -1,0 +1,6 @@
+# build output
+/bin/
+
+# Puppet integration and internal planning (kept locally, not released)
+/puppet/
+/PLAN.md

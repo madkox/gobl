@@ -1,0 +1,7 @@
+[Unit]
+Description=gobl: decay, forgive and sync nft perm sets
+After=nftables.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/gobl maintain

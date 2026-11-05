@@ -1,0 +1,8 @@
+[Unit]
+Description=gobl: sync permabans through Redis (no-op if redis_url is empty)
+After=network-online.target nftables.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/gobl sync

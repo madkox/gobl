@@ -1,0 +1,30 @@
+#!/usr/sbin/nft -f
+# Example ruleset for gobl. Merge the f2b_* parts into your own ruleset;
+# the rest is only here to make the example complete.
+#
+# Put the whitelist and anything that must never be blocked (e.g. SSH from
+# your management network) BEFORE the f2b_* rules.
+
+table inet filter {
+	set f2b_temp  { type ipv4_addr; }
+	set f2b_perm  { type ipv4_addr; }
+	set f2b_temp6 { type ipv6_addr; }
+	set f2b_perm6 { type ipv6_addr; }
+
+	chain input {
+		type filter hook input priority filter; policy drop;
+
+		iifname "lo" accept comment "Loopback"
+		# ip saddr { 192.0.2.10 } accept comment "Whitelist"
+
+		ip  saddr @f2b_temp  drop comment "fail2ban temp ban"
+		ip  saddr @f2b_perm  drop comment "fail2ban permanent ban"
+		ip6 saddr @f2b_temp6 drop comment "fail2ban temp ban v6"
+		ip6 saddr @f2b_perm6 drop comment "fail2ban permanent ban v6"
+
+		ct state invalid drop
+		ct state established,related accept
+		meta l4proto { icmp, ipv6-icmp } accept
+		tcp dport { 22, 80, 443 } accept
+	}
+}

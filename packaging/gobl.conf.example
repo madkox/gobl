@@ -1,0 +1,73 @@
+# gobl configuration: /etc/gobl/gobl.conf
+#
+# gobl reads this file on every run, so changes apply from the next
+# fail2ban action. No reload or restart is needed.
+# Check it with: gobl check-config /etc/gobl/gobl.conf
+#
+# Format: key = value. Only lines starting with # or ; are comments, so
+# values (e.g. passwords) may contain #. Values may be quoted. An empty
+# value means the built-in default shown below.
+
+# --- Ban policy (seconds) -------------------------------------------------
+
+# Each full period without a new ban lowers an IP's counter by one.
+permaban_timeout = 86400
+
+# Counter value that turns a temporary ban into a permaban.
+# 1 = the first ban is already permanent; 3 = the third ban within the
+# decay window makes it permanent.
+permaban_retry = 1
+
+# A permaban is lifted after this long without activity. 0 or false = never.
+permaban_forgive = 2629746
+
+# --- nftables -------------------------------------------------------------
+
+# "<family> <name>" of the table holding the sets. gobl creates missing
+# sets in this table but never creates tables or rules.
+nft_table = inet filter
+
+set_temp  = f2b_temp
+set_perm  = f2b_perm
+# Leave both empty to keep IPv6 bans in the database only.
+set_temp6 = f2b_temp6
+set_perm6 = f2b_perm6
+
+# netlink (default, talks to the kernel directly) or exec (runs `nft`).
+nft_backend = netlink
+
+# true = `gobl maintain` also removes perm-set entries gobl does not know
+# about (e.g. added by hand).
+nft_strict_perm = false
+
+# --- Storage and logging --------------------------------------------------
+
+db_path = /var/lib/gobl/gobl.db
+
+# How long to keep the audit log of bans and unbans. 0 = no audit log.
+events_retention = 2592000
+
+syslog = true
+
+# --- Optional: share permabans between hosts through Redis -----------------
+# Leave redis_url empty to run standalone; `gobl sync` then does nothing.
+# Needs Redis >= 6.2 or Valkey. Minimal ACL:
+#   user gobl on >secret ~f2b:* +@all
+
+redis_url =
+# redis_url = redis://redis.example.net:6379
+# redis_url = rediss://redis.example.net:6380   (TLS)
+# redis_url = unix:///run/redis/redis.sock
+
+# Empty = take the database number, user and password from the URL.
+redis_db =
+redis_username =
+redis_password =
+
+# CA bundle for rediss:// with a private CA.
+redis_tls_ca =
+
+redis_prefix = f2b:
+
+# Name of this host in the f2b:nodes hash (default: hostname).
+node_name =
