@@ -9,9 +9,9 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"gobl/internal/ipaddr"
-	"gobl/internal/policy"
-	"gobl/internal/store"
+	"github.com/madkox/gobl/internal/ipaddr"
+	"github.com/madkox/gobl/internal/policy"
+	"github.com/madkox/gobl/internal/store"
 )
 
 // ParseRublYAML reads rubl's list.yml. Ruby writes Symbol keys as

@@ -7,7 +7,7 @@ import (
 	"sync"
 	"testing"
 
-	"gobl/internal/policy"
+	"github.com/madkox/gobl/internal/policy"
 )
 
 const day = 86400

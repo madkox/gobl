@@ -59,6 +59,13 @@ make build                      # → bin/gobl (static, linux/amd64)
 sudo install -m 0755 bin/gobl /usr/local/sbin/gobl
 ```
 
+Or, with Go installed:
+
+```sh
+CGO_ENABLED=0 go install github.com/madkox/gobl/cmd/gobl@latest
+sudo install -m 0755 "$(go env GOPATH)/bin/gobl" /usr/local/sbin/gobl
+```
+
 ### 2. Configuration
 
 ```sh
@@ -326,3 +333,7 @@ sudo rm /usr/local/sbin/gobl /etc/fail2ban/action.d/gobl.conf /etc/systemd/syste
 sudo rm -r /etc/gobl /var/lib/gobl
 sudo nft delete set inet filter f2b_temp   # and the other f2b_* sets, after removing their rules
 ```
+
+## License
+
+MIT. See [LICENSE](LICENSE).

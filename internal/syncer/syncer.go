@@ -27,10 +27,10 @@ import (
 
 	"github.com/redis/go-redis/v9"
 
-	"gobl/internal/config"
-	"gobl/internal/ipaddr"
-	"gobl/internal/policy"
-	"gobl/internal/store"
+	"github.com/madkox/gobl/internal/config"
+	"github.com/madkox/gobl/internal/ipaddr"
+	"github.com/madkox/gobl/internal/policy"
+	"github.com/madkox/gobl/internal/store"
 )
 
 const (

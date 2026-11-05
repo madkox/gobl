@@ -13,8 +13,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"gobl/internal/ipaddr"
-	"gobl/internal/policy"
+	"github.com/madkox/gobl/internal/ipaddr"
+	"github.com/madkox/gobl/internal/policy"
 
 	_ "modernc.org/sqlite"
 )

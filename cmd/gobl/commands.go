@@ -9,13 +9,13 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"gobl/internal/config"
-	"gobl/internal/ipaddr"
-	"gobl/internal/migrate"
-	"gobl/internal/nft"
-	"gobl/internal/policy"
-	"gobl/internal/store"
-	"gobl/internal/syncer"
+	"github.com/madkox/gobl/internal/config"
+	"github.com/madkox/gobl/internal/ipaddr"
+	"github.com/madkox/gobl/internal/migrate"
+	"github.com/madkox/gobl/internal/nft"
+	"github.com/madkox/gobl/internal/policy"
+	"github.com/madkox/gobl/internal/store"
+	"github.com/madkox/gobl/internal/syncer"
 )
 
 type app struct {

@@ -1,4 +1,4 @@
-module gobl
+module github.com/madkox/gobl
 
 go 1.24.0
 

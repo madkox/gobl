@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"gobl/internal/config"
+	"github.com/madkox/gobl/internal/config"
 )
 
 var version = "dev"

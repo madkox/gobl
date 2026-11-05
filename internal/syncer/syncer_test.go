@@ -8,9 +8,9 @@ import (
 
 	"github.com/alicebob/miniredis/v2"
 
-	"gobl/internal/config"
-	"gobl/internal/policy"
-	"gobl/internal/store"
+	"github.com/madkox/gobl/internal/config"
+	"github.com/madkox/gobl/internal/policy"
+	"github.com/madkox/gobl/internal/store"
 )
 
 const day = 86400
