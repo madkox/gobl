@@ -14,8 +14,6 @@ import (
 	"github.com/madkox/gobl/internal/config"
 )
 
-var version = "dev"
-
 const usage = `usage: gobl [-c config] [-v] <command> [args]
 
 fail2ban actions:
@@ -130,7 +128,7 @@ func run(args []string) int {
 	cmd, rest := args[0], args[1:]
 	switch cmd {
 	case "version":
-		fmt.Println("gobl", version)
+		fmt.Println("gobl", getVersion())
 		return exitOK
 	case "check-config":
 		return cmdCheckConfig(rest, cfgPath)
