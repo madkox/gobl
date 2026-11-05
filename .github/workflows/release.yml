@@ -1,0 +1,38 @@
+name: release
+
+# Push a tag like v0.1.0 to test, build and publish a GitHub release.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Test
+        run: make vet test
+
+      - name: Build release archives
+        run: make dist VERSION=${{ github.ref_name }}
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prerelease=
+          case "${{ github.ref_name }}" in *-*) prerelease=--prerelease;; esac
+          gh release create "${{ github.ref_name }}" \
+            --title "gobl ${{ github.ref_name }}" \
+            --generate-notes $prerelease \
+            dist/*.tar.gz dist/SHA256SUMS

@@ -1,0 +1,29 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Unit tests
+        run: make vet test
+
+      - name: Integration tests
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -yq nftables sqlite3 redis-server
+          sudo systemctl stop redis-server || true
+          make build
+          # GitHub runners restrict unprivileged user namespaces, so run as
+          # root; the script still isolates itself in a new network namespace.
+          sudo env GOBL_IN_NS=1 unshare -n sh test/integration.sh bin/gobl

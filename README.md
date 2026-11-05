@@ -51,7 +51,23 @@ permaban.
 
 ## Install
 
-### 1. Build and install the binary
+### 1. Install the binary
+
+Download a release (static binaries for `amd64`, `arm64` and `armv7`):
+
+```sh
+arch=amd64   # or arm64, armv7
+curl -fsSLO https://github.com/madkox/gobl/releases/latest/download/gobl_linux_$arch.tar.gz
+curl -fsSLO https://github.com/madkox/gobl/releases/latest/download/SHA256SUMS
+sha256sum -c --ignore-missing SHA256SUMS
+tar xzf gobl_linux_$arch.tar.gz && cd gobl_linux_$arch
+sudo install -m 0755 gobl /usr/local/sbin/gobl
+```
+
+The archive also contains `packaging/` and the README, so the steps below
+work from inside the unpacked directory.
+
+Or build from source:
 
 ```sh
 make build                      # → bin/gobl (static, linux/amd64)
@@ -304,7 +320,12 @@ rubl's.
 ```sh
 make test          # unit tests
 make integration   # real binary against nftables in a throwaway network namespace
+make dist          # release archives for all architectures into dist/
 ```
+
+Releases are built by GitHub Actions (`.github/workflows/release.yml`) when
+a `v*` tag is pushed. A tag containing `-` (e.g. `v0.2.0-rc1`) is marked as a
+pre-release.
 
 The integration suite needs `unshare` (it runs unprivileged), `nft` and
 `sqlite3`. It covers both nft backends. With `redis-server` and
